@@ -1,0 +1,110 @@
+Objets:
+
+Dim myObject as MonObjet
+Dim myObject1 as MonObjet
+Set myobject=New MonObjet
+-->déclaration et assignement MAIS PAS CRÉATION.
+Set myObject1=myObject
+-->passage par adresse donc myObject1 et myObject font référence au même objet.
+
+Dim myObject as New MonObjet
+-->déclaration et assignement et création.
+
+Contenu:
+myObject.mafonction(param1,...)
+myObject.maProcedure (ici sans argument, pas de parenthèses)
+-->Méthodes: fonctions ou procédures, fonction toujours avec des parenthèses, procédure pas obliger on peut enlever les parenthèses et mettre les arguments.
+peut être publiques ou privés
+
+Get, Set, Let
+--> types de propriétés càd fonctions spéciaux qui se comportent comme des variables. Propriété est un type de procédure, elle se comporte de la même façon
+qu'une procédure classique.
+Get – returns an object or value from the class
+Let – sets a value in the class
+Set – sets an object in the class
+
+Évènements:
+Event - Initialize
+-->exécution lors de la création de l'objet considéré.
+
+Event - Terminate
+-->exécution lors de la suppression de l'objet considéré.
+
+Variables:
+Variables (comme attributs de l'objet). peut être publique ou privé (Private or Public voir ex ci-dessous).
+
+
+
+Exemple:
+Module de classe:
+' CLASS MODULE CODE from clsAccount
+' https://excelmacromastery.com/vba-class-modules/
+
+' Member variable
+Private m_balance As Double
+
+' Properties
+Property Get Balance() As Double
+    Balance = m_balance
+End Property
+
+Property Let Balance(value As Double)
+    m_balance = value
+End Property
+
+' Event - triggered when class created
+Private Sub Class_Initialize()
+    m_balance = 100
+End Sub
+
+' Methods
+Public Sub Withdraw(amount As Double)
+    m_balance = m_balance - amount
+End Sub
+
+Public Sub Deposit(amount As Double)
+    m_balance = m_balance + amount
+
+End Sub
+' Events
+Private Sub Class_Initialize()
+    MsgBox "Create object succeed"
+End Sub
+
+Private Sub Class_Terminate()
+    MsgBox "Remove object succeed"
+End Sub
+
+Autre module:
+' This sub uses the clsAccount class
+' The results are printed to the Immediate Window(Ctrl + G)
+' https://excelmacromastery.com/vba-class-modules/
+Sub Demo_clsAccount()
+
+    Dim oAccount As New clsAccount
+    
+    ' Print the balance
+    Debug.Print "Starting balance is: " & oAccount.Balance
+
+    'let the balance
+    oAccount.m_balance=12  #on modifie directement même avec Private, implémentation de Let
+
+    ' Deposit money
+    oAccount.Deposit 25
+
+    ' Print the balance
+    Debug.Print "Balance after deposit is: " & oAccount.Balance
+    
+    ' Withdraw Money
+    oAccount.Withdraw 100
+
+    ' Print the balance
+    Debug.Print "Balance after withdrawl is: " & oAccount.Balance
+    
+End Sub
+
+
+PAS DE PARENTHESES = PROCEDURE OU PROPRIETE GET.
+AVEC PARENTHESES=FONCTIONS.
+
+

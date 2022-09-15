@@ -1,0 +1,26 @@
+-----------------------------------------------------------------------------------------------------------------------------------
+Fichier my.ini pour configurer le serveur mysql:
+
+commande1: .\mysqld.exe --defaults-file=C:\Users\jeanf\OneDrive\Bureau\Ides\mysql\my.ini --initialize 
+-->intitialisation + création fichier data pour les bases de données
+commande2: se loger via .\mysql.exe -u root -p 
+commande3: lancer le serveur mysql .\mysqld.exe --console (mysqld pour coté serveur)--> écoute du port 3206
+commande4: quitter le serveur(plus d'écoute du port 3206) .\mysqladmin.exe -u root -p shutdown
+
+Encodage caractère coté serveur/ client/mysql voir my.ini
+
+Moteur de Stockage:
+-MyISAM 
+-->(non transactionel donc pas de vérification intégrité données sur requète écriture mais plus rapide lecture/ écriture)
+
+-InnoDB
+-->(transactionel, plus de sécurité, vérification intégrité des données sur requête écriture,
+mais plus lent car algos tourne pour conserver l'intégrité des données en cas de panne pendant une requête.
+
+commandeSQL: SHOW ENGINES; 
+-->voir les moteurs de stockage.
+
+commandeSQL: SET default_storage_engine='moteur de stockage' 
+-->changer le moteur de stockage par défault sur toutes les tables.
+
+-----------------------------------------------------------------------------------------------------------------------------------

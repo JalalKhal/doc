@@ -1,0 +1,274 @@
+https://excelmacromastery.com/vba-class-modules/
+
+
+variables:
+public (resp) private age as integer
+-->mot clé public resp private, variable accessible partout (public age as integer) resp accessible que sur le module courant
+déclaration extérieur du module: accessible sur tout le module
+
+Const NomConstante [As Type] = valeur
+-->Une constante a la même portée qu’une variable, constante non modifiable
+
+Static nomVariableStatique
+--> variable déclarée dans une procédure ou fonction qui conserve sa valeur même après l'exécution de la fonction ou procédure.
+Let value=5
+--> modifie par valeur la variable value et met 5
+
+
+
+Tableaux:
+Dim NomTableau(dimension) [As Type] 
+dimension=9 par ex...
+--> renvoie un tableau de taille fixe de taille fixe.
+
+Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", 
+"Samedi", "Dimanche")
+-->fonction Array envoie une variable de type variant contenant un tableau (le tableau pas les données).
+
+opérateurs:
+test avec = <...
+
+concaténation &
+
+With Selection.Font 
+ .Size = 12 
+ .ColorIndex = 3 
+ .Italic = True 
+ End With 
+-->selection objet
+
+
+
+il existe deux manières de spécifier les valeurs des arguments d’une 
+fonction : par position ou par nom. Lorsque les valeurs des arguments sont 
+spécifiées par nom, il faut utiliser le signe := entre le nom de l’argument et 
+sa valeur.
+
+
+
+entrées sorties:
+MsgBox(prompt:="question posée à l'utilisateur"(str), Buttons:="type de boutton"(int par ex 4... ou constante vba (par vbyesno)->voir doc, Title:="titre de la fenêtre de dialogue"(str))
+--> msgbox est une fonction donc valeur de retour pour recupérer la réponse de l'utilisateur(par exemple pour bouttons vbyesno-> réponse envoyée vbyes par ex, voir doc pour plus info).
+
+InputBox(prompt:=voir ci dessus,title:=voir ci dessus,default:=,xpos:=,ypos:=,helpfile:=,context:=)
+-->xpos resp ypos=distance horizontale resp veritcale  coin sup gauche fenêtre excel et coin sup gauche fenêtre inputbox
+default=valeur par défault si le user écrit rien
+helpfile,context-->voir doc
+
+
+Appels procédures/fonctions:
+Pour appeler une procédure ou ne pas récupérer la valeur de retour d’une 
+fonction, il faut utiliser l’instruction Call. 
+Exemple : Call MsgBox("Bonjour ! ", , "Accueil")
+Attention : Il ne faut pas mettre d’espace entre le nom d’une fonction ou 
+d’une procédure et la liste de ses arguments placés entre parenthèses.
+Il existe un autre moyen pour appeler une procédure ou une fonction dont on ne 
+veut pas récupérer la valeur de retour : ne pas utiliser l’instruction Call et ne pas 
+placer ses arguments entre parenthèses. 
+Exemple : 
+MsgBox "Bonjour ! ", , "Accueil" 
+pour recup la valeur:
+maVariable=MsgBox("Bonjour ! ", , "Accueil") 
+
+boucles:
+WHILE:
+Do While condition 	'Tant que la condition est vraie, les instructions 
+Instructions 		sont exécutées.'
+Loop
+
+Do Until condition 	'Jusqu'à ce que la condition devienne vraie, les
+Instructions 		instructions sont exécutées.'
+Loop
+
+Do 			'les instructions sont exécutées AVEC EXÉCUTION AU MOINS UNE FOIS DANS TOUS LES CAS  tant que la 
+Instructions 		condition reste vraie.'
+Loop While condition
+
+Do 			'les instructions sont exécutées AVEC EXÉCUTION AU MOINS UNE FOIS DANS TOUS LES CAS jusqu’à ce que la
+Instructions 		condition devienne vraie.'
+Loop Until condition
+
+
+FOR:
+For compteur = nbdébut To nbfin [Step nbpas]
+Instructions 					'instructions exécutées un nombre déterminé de fois (nbfin-nbdebut fois donc nbfin exclus de l'exécution).'
+Next compteur
+
+[..]=facultatif
+
+For Each Cellule In MaPlage 			
+ Cellule.Interior.ColorIndex = i		'instructions exécutées parcourant un itérateur (cellules, collections de feuilles...)' 
+ i = i + 1 
+ Next Cellule
+
+Exit Do 
+Exit For 
+Exit Function 
+Exit Sub 
+-->quitte le bloc en question (comme break en python)
+
+
+déboguage:
+La pile d’appels : la pile d’appels recense toutes les procédures ou fonctions 
+en cours d’exécution, selon leur ordre d’appel. Pour afficher la pile des 
+appels, dans affichage activer la commande PILE DES APPELS. 
+
+
+Formulaire:
+Me
+-->renvoi le UserForm actif.
+
+Load nomUserForm
+-->charge nomUserForm en mémoire MAIS ne l'affiche pas.
+
+nomUserForm.Show
+-->charge nomUserForm en mémoire si il n'a pas été chargé, si ça a été chargé, IL NE LE CHARGE PAS IL GARDE LES INFOS QUI ONT DÉJÀ ÉTÉ CHARGÉES!!! ET l'affiche pour le user.
+
+Unload nomUserForm
+-->ferme nomUserForm et l'efface de la mémoire (valeurs du formalaire perdues)
+
+nomUserForm.Hide
+-->méthode qui cache nomUserForm de l'écran MAIS sans le supprimer de la mémoire.
+
+numUserForm.propriete
+-->renvoi la propriété nompropriete (par exemple nomUserForm.zoneDeTexte="Blabla"-> affecte la zone de texte avec comme texte "Blabla").
+
+Un exemple:
+pour une ComboBox (liste déroulante) avec propriété name comboBox1:
+comboBox1.RowSource=Feuil1!A2:A6
+-->met dans la liste déroulante, le contenu des cellules A2 jusqu'à A6 dans la Feuill1 du classeur là ou il y a le formulaire.
+
+Évènements:
+Évènements codés sur le module évènement du formulaire.
+La syntaxe d’une procédure événementielle attachée à un contrôle (par exemple un boutton de commande) de nom 
+NomContrôle (propriété NAME du contrôle) et déclenchée par un événement 
+NomEvénement est la suivante : 
+Private Sub NomContrôle_NomEvenement() 
+ ... 
+End Sub 
+
+exemple:
+Private Sub ButtonOK_Click() 
+ Call Unload(Me) 
+End Sub
+--> On a un bouton de commande dans le formulaire puis on a mis la propriété name de ce bouton à ButtonOK, évènement click déclenchée, donc quand il clique sur ok le formulaire et supprimer de la mémoire et il est fermée.
+On a bien nom de contrôle= ButtonOK et NomEvenement=Click (Attention nom évènement connu de VBA voir doc).
+
+
+Objets:
+
+Dim myObject as MonObjet
+Dim myObject1 as MonObjet
+Set myobject=New MonObjet
+-->déclaration et assignement MAIS PAS CRÉATION.
+Set myObject1=myObject
+-->passage par adresse donc myObject1 et myObject font référence au même objet.
+
+Dim myObject as New MonObjet
+-->déclaration et assignement et création.
+
+Contenu:
+myObject.mafonction(param1,...)
+myObject.maProcedure (ici sans argument, pas de parenthèses)
+-->Méthodes: fonctions ou procédures, fonction toujours avec des parenthèses, procédure pas obliger on peut enlever les parenthèses et mettre les arguments.
+peut être publiques ou privés
+
+Get, Set, Let
+--> types de propriétés càd fonctions spéciaux qui se comportent comme des variables. Propriété est un type de procédure, elle se comporte de la même façon
+qu'une procédure classique.
+Get – returns an object or value from the class
+Let – sets a value in the class
+Set – sets an object in the class
+
+Évènements:
+Event - Initialize
+-->exécution lors de la création de l'objet considéré.
+
+Event - Terminate
+-->exécution lors de la suppression de l'objet considéré.
+
+Variables:
+Variables (comme attributs de l'objet). peut être publique ou privé (Private or Public voir ex ci-dessous).
+
+
+
+Exemple:
+Module de classe:
+' CLASS MODULE CODE from clsAccount
+' https://excelmacromastery.com/vba-class-modules/
+
+' Member variable
+Private m_balance As Double
+
+' Properties
+Property Get Balance() As Double
+    Balance = m_balance
+End Property
+
+Property Let Balance(value As Double)
+    m_balance = value
+End Property
+
+' Event - triggered when class created
+Private Sub Class_Initialize()
+    m_balance = 100
+End Sub
+
+' Methods
+Public Sub Withdraw(amount As Double)
+    m_balance = m_balance - amount
+End Sub
+
+Public Sub Deposit(amount As Double)
+    m_balance = m_balance + amount
+
+End Sub
+' Events
+Private Sub Class_Initialize()
+    MsgBox "Create object succeed"
+End Sub
+
+Private Sub Class_Terminate()
+    MsgBox "Remove object succeed"
+End Sub
+
+Autre module:
+' This sub uses the clsAccount class
+' The results are printed to the Immediate Window(Ctrl + G)
+' https://excelmacromastery.com/vba-class-modules/
+Sub Demo_clsAccount()
+
+    Dim oAccount As New clsAccount
+    
+    ' Print the balance
+    Debug.Print "Starting balance is: " & oAccount.Balance
+
+    'let the balance
+    oAccount.m_balance=12  #on modifie directement même avec Private, implémentation de Let
+
+    ' Deposit money
+    oAccount.Deposit 25
+
+    ' Print the balance
+    Debug.Print "Balance after deposit is: " & oAccount.Balance
+    
+    ' Withdraw Money
+    oAccount.Withdraw 100
+
+    ' Print the balance
+    Debug.Print "Balance after withdrawl is: " & oAccount.Balance
+    
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,205 @@
+fichier my.ini pour configurer le serveur mysql:
+
+commande1: .\mysqld.exe --defaults-file=C:\Users\jeanf\OneDrive\Bureau\Ides\mysql\my.ini --initialize -->intitialisation + création fichier data pour les bases de données
+commande2: se loger via .\mysqld.exe -u root -p 
+commande3: lancer le serveur mysql .\mysqld.exe --console (mysqld pour coté serveur)--> écoute du port 3206
+commande4: quitter le serveur(plus d'écoute du port 3206) .\mysqladmin.exe -u root -p shutdown
+
+Encodage caractère coté serveur/ client/mysql voir my.ini
+
+Moteur de Stockage:
+-MyISAM (non transactionel donc pas de vérification intégrité données sur requète écriture mais plus rapide lecture/ écriture)
+-InnoDB(transactionel, plus de sécurité, vérification intégrité des données sur requête écriture mais plus lent car algos tourne pour conserver l'intégrité des données en cas de panne pendant une requête.
+commandeSQL 1: SHOW ENGINES; voir les moteurs de stockage.
+commandeSQL 2: SET default_storage_engine='moteur de stockage' changer le moteur de stockage par défault sur toutes les tables.
+
+/*les commentaires sur le code mySQL ...*/
+Bases de données:
+commandeSQL 3: CREATE DATABASE database1; 
+commandeSQL 4: CREATE DATABASE IF NOT EXISTS database1; 
+commandeSQL 5: USE database1; sélectionner database1
+commandeSQL 6: DROP DATABASE database1; supprimer database1
+commandeSQL 7:SHOW TABLES; vue sur les tables de la base de données courante (sélectionnée)
+
+Tables:
+commandeSQL 8:
+CREATE TABLE t_users
+(
+    id_user INT,
+    user_name VARCHAR(65),
+    user_birthday DATE
+);
+ENGINE=MyISAM (ou autre)
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci (pas sensible à la casse càd M=m)
+
+création table t_users sur base de donnée courante (sélectionnée)
+commandeSQL 9:DESCRIBE t_users; description table t_users (liste colonnes,types...)
+commandeSQL 10:
+ALTER TABLE t_users
+ADD user_points TINYINT(2);
+Ajouter colonne t_users à la table t_users on peut rajouter plusieurs colonnes à la suite
+
+commandeSQL 11:
+ALTER TABLE t_users
+DROP user_points;
+Supprimer colonne user_points à la table t_users
+
+commandeSQL 12:
+ALTER TABLE t_users
+MODIFY  id_user SMALLINT;
+Modifier type d'une colonne
+
+commandeSQL 13:
+ALTER TABLE t_users
+CHANGE user_birthday user_birth DATE;
+Modifier le nom d'une colonne avec son type
+
+commandeSQL 14:
+DROP TABLE IF EXISTS t_users;
+Supprimer table t_users si elle existe (supprimer toutes les tables liées a cette table 
+avant la suppression càd pas de table avec clé étrangère champ t_users)
+
+commandeSQL 15:
+DESCRIBE nom_table
+Donne une description de la table nom_table.
+
+Contraintes:
+
+Contrainte 1: NOT NULL (interdiction de déclarer une ligne sans le champ porté par le NOT NULL)
+Déclaration table:
+id_user SMALLINT NOT NULL
+Après déclaration table:
+ALTER TABLE table_users
+MODIFY id_user SMALLINT NOT NULL;
+
+Contrainte 2: DEFAULT val (champ mis à valeur val si champ non renseigné, sans le NOT NULL)
+Déclaration table:
+user_admin BOOLEAN DEFAULT 0
+Après déclaration table:
+ALTER TABLE table_users
+ALTER user_admin SET DEFAULT 0;
+
+Contrainte 3: CHECK (teste des conditions avant création ligne test vrai ok, faux erreur sql check non respecté, le test peut porter sur plusieurs colonnes )
+Déclaration table:
+id_user SMALLINT CHECK(id_user<=1000)
+Après déclaration table:
+ALTER TABLE table_users
+ADD CONSTRAINT CHK_idtoobig CHECK(id_user<=1000 and field3>=500);
+
+Contrainte 4: UNIQUE (valeur de colonne unique pas deux ligne avec la meme valeur sur une colonne)
+Déclaration table:
+UNIQUE(user_name)
+Après déclaration table:
+ALTER TABLE table_users
+ADD CONSTRAINT UC_unique UNIQUE(user_name);
+
+Contrainte 5: PRIMARY KEY
+Déclaration table:
+PRIMARYKEY(id_user)
+Après déclaration table:
+ALTER TABLE table_users
+ADD CONSTRAINT PMK_user PRIMARYKEY(id_user);
+Supprimer clé primaire:
+ALTER TABLE table_users
+DROP PRIMARY KEY;
+
+Contrainte 6: AUTO_INCREMENT (lors création ligne, incrémentation d'un champ par ex id)
+Déclaration table:
+id_user SMALLINT AUTO_INCREMENT
+pour commencer à une valeur particulière:
+ALTER TABLE table_users AUTO_INCREMENT=100 (commence l'incrémentation à 100)
+
+
+Contrainte 7: soit t1, t2 deux table, déclaration table dans t2 (t2_id est clé étrangère dans t2 car t1_id est le même champ que t2_id):
+Déclaration table:
+FOREIGN KEY(t2_id) REFERENCES t1(t1_id)
+Après déclaration table:
+ADD CONSTRAINT FK_strangekey FOREIGN KEY(t2_id) REFERENCES t1(t1_id);
+
+Retirer contrainte avec nom:
+DROP FOREIGN KEY FK_strangekey;
+
+
+Contrainte 6: INDEX (création d'index, plus rapide recherche données...)
+Après déclaration table:
+ALTER TABLE table_users
+CREATE INDEX idx_users ON table_users(user_name,user_email,field3...);
+
+Supprimer index:
+DROP INDEX idx_users;
+
+
+Utilisateurs:
+commandeSQL:
+CREATE USER 'nom_utilisateur'@'localhost ou ip' IDENTIFIED BY 'mot de passe'; 
+(création utilisateur)
+
+commandeSQL:
+ALTER USER 'nom_utilisateur'@'localhost ou ip' IDENTIFIED BY 'new_mot_de_passe';
+(modification mot de passe)
+
+commandeSQL:
+RENAME USER 'nom_utilisateur'@'localhost ou ip' TO 'nouveau_nom_utilisateur'@'localhost ou ip';
+(renommée nom utilisateur)
+
+commandeSQL:
+DROP USER 'nom_utilisateur'@'localhost ou ip';
+(supprimer nom d'utilisateur)
+
+GRANT ALL ON nom_base.nom_table TO 'nom_utilisateur'@'localhost ou ip';
+donne le droit à l'utilisateur nom_utilisateur sur nom_table sur la base nom_base (*=toutes les bases resp toutes les tables)
+GRANT ALL ON *.* TO 'nom_utilisateur'@'localhost ou ip';
+
+REVOKE ALL
+ON nom_table resp *.nom_base resp*
+FROM 'nom_utilisateur'@'localhost ou ip';
+retire les droits.
+
+Insertion:
+-->sélectionner la base ou fv_user est
+INSERT INTO fv_users(user_firstname, user_lastname, user_birthdate, user_tel, user_purchases)--> liste de tous les champs)
+VALUES('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4);
+insertion ligne sur la table fv_users (un seul enregistrement).
+
+
+INSERT INTO fv_users(user_firstname, user_lastname, user_birthdate, user_tel, user_purchases)--> liste de tous les champs)
+VALUES
+('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4),
+('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4),
+('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4),
+('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4),
+('John Christopher', 'DEPP II', '1963-06-09', '0606060606', 4),
+...
+;
+insertion lignes sur la table fv_users (plusieurs enregistrements à la fois).
+
+Suppression:
+DELETE FROM fv_games WHERE game_title='Tekken';
+Suppression lignes de la table fv_games ou le titre du jeu est 'Tekken'.
+DELETE FROM fv_games;
+ou
+TRUNCATE TABLE fv_games;
+Supprimer tous les enregistrements.
+
+
+Modification:
+UPDATE fv_games 
+SET game_stock=6,game_price=11.59... 
+WHERE id=1; 
+modification de la ligne ou id=1 passage de game_stock à 6 et game_price à 11.59... (fv_games nom de la table)
+(Attention id est clé primaire si possible pour avoir modication sur la ligne unique dans la table fv_games mais pas obliger).
+(le WHERE après condition)
+UPDATE fv_games 
+SET game_stock=6,game_price=11.59... 
+;
+modification sur toutes les lignes de game_stock et game_price dans la table fv_games
+
+
+Lecture CSV:
+LOAD DATA INFILE 'C:/Users/jeanf/OneDrive/Documents/test.csv'
+INTO TABLE flavor
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 0 ROWS;
+

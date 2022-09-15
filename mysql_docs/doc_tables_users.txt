@@ -1,0 +1,73 @@
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Tables:
+commandeSQL:
+CREATE TABLE t_users
+(
+    id_user INT,
+    user_name VARCHAR(65),
+    user_birthday DATE
+);
+ENGINE=MyISAM (ou autre)
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci (pas sensible à la casse càd M=m)
+-->création table t_users sur base de donnée courante (sélectionnée)
+
+commandeSQL:DESCRIBE t_users;
+-->description table t_users (liste colonnes,types...)
+
+commandeSQL:
+ALTER TABLE t_users
+ADD user_points TINYINT(2);
+-->Ajouter colonne user_points à la table t_users on peut rajouter plusieurs colonnes à la suite
+
+commandeSQL:
+ALTER TABLE t_users
+DROP user_points;
+-->Supprimer colonne t_users à la table t_users
+
+commandeSQL:
+ALTER TABLE t_users
+MODIFY  id_user SMALLINT;
+-->Modifier type d'une colonne
+
+commandeSQL:
+ALTER TABLE t_users
+CHANGE user_birthday user_birth DATE;
+-->Modifier le nom d'une colonne avec son type
+
+commandeSQL:DROP TABLE IF EXISTS t_users;
+-->Supprimer table t_users si elle existe (supprimer toutes les tables liées a cette table 
+avant la suppression càd pas de table avec clé étrangère champ t_users)
+
+commandeSQL:DESCRIBE nom_table
+-->Donne une description de la table nom_table.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Utilisateurs:
+commandeSQL:CREATE USER 'nom_utilisateur'@'localhost ou ip' IDENTIFIED BY 'mot de passe'; 
+-->création utilisateur
+
+commandeSQL:ALTER USER 'nom_utilisateur'@'localhost ou ip' IDENTIFIED BY 'new_mot_de_passe';
+-->modification mot de passe
+
+commandeSQL:RENAME USER 'nom_utilisateur'@'localhost ou ip' TO 'nouveau_nom_utilisateur'@'localhost ou ip';
+-->renommée nom utilisateur
+
+commandeSQL:DROP USER 'nom_utilisateur'@'localhost ou ip';
+-->supprimer nom d'utilisateur
+
+commandeSQL:GRANT ALL ON nom_base.nom_table TO 'nom_utilisateur'@'localhost ou ip'; | GRANT ALL ON *.* TO 'nom_utilisateur'@'localhost ou ip';
+-->donne le droit à l'utilisateur nom_utilisateur sur nom_table sur la base nom_base (*=toutes les bases resp toutes les tables)
+
+commandeSQL:
+REVOKE ALL
+ON nom_table resp *.nom_base resp*
+FROM 'nom_utilisateur'@'localhost ou ip';
+-->retire les droits.
+
+-----------------------------------------------------------------------------------------------------------------------------------

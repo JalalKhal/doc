@@ -1,0 +1,24 @@
+
+Formulaire:
+Me
+-->renvoi le UserForm actif.
+
+Load nomUserForm
+-->charge nomUserForm en mémoire MAIS ne l'affiche pas.
+
+nomUserForm.Show
+-->charge nomUserForm en mémoire si il n'a pas été chargé, si ça a été chargé, IL NE LE CHARGE PAS IL GARDE LES INFOS QUI ONT DÉJÀ ÉTÉ CHARGÉES!!! ET l'affiche pour le user.
+
+Unload nomUserForm
+-->ferme nomUserForm et l'efface de la mémoire (valeurs du formalaire perdues)
+
+nomUserForm.Hide
+-->méthode qui cache nomUserForm de l'écran MAIS sans le supprimer de la mémoire.
+
+numUserForm.propriete
+-->renvoi la propriété nompropriete (par exemple nomUserForm.zoneDeTexte="Blabla"-> affecte la zone de texte avec comme texte "Blabla").
+
+Un exemple:
+pour une ComboBox (liste déroulante) avec propriété name comboBox1:
+comboBox1.RowSource=Feuil1!A2:A6
+-->met dans la liste déroulante, le contenu des cellules A2 jusqu'à A6 dans la Feuill1 du classeur là ou il y a le formulaire.

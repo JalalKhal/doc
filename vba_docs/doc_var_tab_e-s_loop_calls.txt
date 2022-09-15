@@ -1,0 +1,125 @@
+variables:
+public (resp) private age as integer
+-->mot clé public resp private, variable accessible partout (public age as integer) resp accessible que sur le module courant
+déclaration extérieur du module: accessible sur tout le module
+
+Const NomConstante [As Type] = valeur
+-->Une constante a la même portée qu’une variable, constante non modifiable
+
+Static nomVariableStatique
+--> variable déclarée dans une procédure ou fonction qui conserve sa valeur même après l'exécution de la fonction ou procédure.
+Let value=5
+--> modifie par valeur la variable value et met 5
+
+
+
+Tableaux:
+Dim NomTableau(dimension) [As Type] 
+dimension=9 par ex...
+--> renvoie un tableau de taille fixe de taille fixe.
+
+Array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", 
+"Samedi", "Dimanche")
+-->fonction Array envoie une variable de type variant contenant un tableau (les données sont variants, si de type Integer les données sont entières).
+
+Tableau dynamique:
+Dim tableau() As Variant
+    ReDim tableau(1)
+    tableau(0) = 5
+    ReDim Preserve tableau(0 To 1)
+    tableau(1) = "alibaba"
+    MsgBox tableau(1) & tableau(0)
+-->Redim à chaque fois en précisant les bornes (fin de la borne inclus ICI), Preserve conserve les valeurs introduites avant.
+
+Un tableau de paramètres peut être utilisé pour transmettre un tableau d’arguments à une procédure. Lors de la définition de cette dernière,
+il n’est pas nécessaire de connaître le nombre d’éléments figurant dans le tableau.
+Pour indiquer un tableau de paramètres, vous devez utiliser le mot clé ParamArray. 
+Le tableau doit être déclaré avec le type Variant et être le dernier argument dans la définition de la procédure.
+
+opérateurs:
+test avec = <...
+
+concaténation &
+
+With Selection.Font 
+ .Size = 12 
+ .ColorIndex = 3 
+ .Italic = True 
+ End With 
+-->selection objet
+
+
+
+il existe deux manières de spécifier les valeurs des arguments d’une 
+fonction : par position ou par nom. Lorsque les valeurs des arguments sont 
+spécifiées par nom, il faut utiliser le signe := entre le nom de l’argument et 
+sa valeur.
+
+
+
+entrées sorties:
+MsgBox(prompt:="question posée à l'utilisateur"(str), Buttons:="type de boutton"(int par ex 4... ou constante vba (par vbyesno)->voir doc, Title:="titre de la fenêtre de dialogue"(str))
+--> msgbox est une fonction donc valeur de retour pour recupérer la réponse de l'utilisateur(par exemple pour bouttons vbyesno-> réponse envoyée vbyes par ex, voir doc pour plus info).
+
+InputBox(prompt:=voir ci dessus,title:=voir ci dessus,default:=,xpos:=,ypos:=,helpfile:=,context:=)
+-->xpos resp ypos=distance horizontale resp veritcale  coin sup gauche fenêtre excel et coin sup gauche fenêtre inputbox
+default=valeur par défault si le user écrit rien
+helpfile,context-->voir doc
+
+
+Appels procédures/fonctions:
+Pour appeler une procédure ou ne pas récupérer la valeur de retour d’une 
+fonction, il faut utiliser l’instruction Call. 
+Exemple : Call MsgBox("Bonjour ! ", , "Accueil")
+Attention : Il ne faut pas mettre d’espace entre le nom d’une fonction ou 
+d’une procédure et la liste de ses arguments placés entre parenthèses.
+Il existe un autre moyen pour appeler une procédure ou une fonction dont on ne 
+veut pas récupérer la valeur de retour : ne pas utiliser l’instruction Call et ne pas 
+placer ses arguments entre parenthèses. 
+Exemple : 
+MsgBox "Bonjour ! ", , "Accueil" 
+pour recup la valeur:
+maVariable=MsgBox("Bonjour ! ", , "Accueil") 
+
+boucles:
+WHILE:
+Do While condition 	'Tant que la condition est vraie, les instructions 
+Instructions 		sont exécutées.'
+Loop
+
+Do Until condition 	'Jusqu'à ce que la condition devienne vraie, les
+Instructions 		instructions sont exécutées.'
+Loop
+
+Do 			'les instructions sont exécutées AVEC EXÉCUTION AU MOINS UNE FOIS DANS TOUS LES CAS  tant que la 
+Instructions 		condition reste vraie.'
+Loop While condition
+
+Do 			'les instructions sont exécutées AVEC EXÉCUTION AU MOINS UNE FOIS DANS TOUS LES CAS jusqu’à ce que la
+Instructions 		condition devienne vraie.'
+Loop Until condition
+
+
+FOR:
+For compteur = nbdébut To nbfin [Step nbpas]
+Instructions 					'instructions exécutées un nombre déterminé de fois (nbfin-nbdebut fois donc nbfin exclus de l'exécution).'
+Next compteur
+
+[..]=facultatif
+
+For Each Cellule In MaPlage 			
+ Cellule.Interior.ColorIndex = i		'instructions exécutées parcourant un itérateur (cellules, collections de feuilles...)' 
+ i = i + 1 
+ Next Cellule
+
+Exit Do 
+Exit For 
+Exit Function 
+Exit Sub 
+-->quitte le bloc en question (comme break en python)
+
+
+déboguage:
+La pile d’appels : la pile d’appels recense toutes les procédures ou fonctions 
+en cours d’exécution, selon leur ordre d’appel. Pour afficher la pile des 
+appels, dans affichage activer la commande PILE DES APPELS. 

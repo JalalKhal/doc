@@ -1,0 +1,51 @@
+Avec databricks--> affectation de machine pour spark
+OPERATION: pas effective à moins de lancer une action--> intérêt: pouvoir organiser les séquences de manière optimale, laisser les machines se "reposer"...
+en Python:
+sc
+-->SparkContext: "objet" qui décrit Spark et son utilisation
+rdd= sc.parallelize(l)
+-->l est une liste, distribue la liste sur plusieurs serveurs (parallélisation), OPERATION DONC PAS EFFECTIVE A MOINS D'UNE EXECUTION D'UNE ACTION.
+
+l=rdd.collect()
+-->collect est une action qui récolte la liste effectivement et ramène le contenu sur notre machine, ACTION
+
+rdd.getNumPartitions()
+-->récupère le nombres des partitions pour le rdd. ACTION
+
+rdd.take(nombre de valeurs)
+-->récupère les [nombre de valeurs] premières valeurs du rdd. ACTION
+
+rdd.count()
+-->compte les enregistrements qu'on a, ACTION
+
+rdd.reduce(lambda x,y:x+y)
+-->reduce qui prend en paramètre une fonction commutative et associative, pour sommer sur les données. Ex: lambda x,y:x+y ajoute de manière récursive les entiers au fur et à mesure. ACTION
+
+rdd.map(function)
+-->function(x) pour x dans rdd, OPERATION PAS MAPREDUCE CETTE FONCTION
+
+rdd.flatMap(function)
+-->même chose que map mais convertit les données qui sont sous forme de listes en str, int, double... cela dépende des données qu'on a.
+
+différence entre un reduce et un map, reduce agrège les données alors que map non, reduce plus coûteux généralement.
+
+rdd.reduceByKey(function)
+-->vrai MapReduce de structure de function: OPERATION
+au préalable rdd={(key, value) for each key}
+lambda x,y:x+y
+x,y sont des valeurs de même clé puis les somme et  retourne un rdd'=={(key,function({value for the key key})) for each key}
+function fait les choses de manière récursive avec deux éléments puis somme et agrège localement...)
+
+rdd.groupByKey ()
+-->même structure du rdd que reduceByKey et retourne rdd'={(key, iterable) who iterable is a list of values for the key key}.
+-->reduceByKey plus efficace que groupByKey car reduceByKey fait des agrégations locales avant d'agréger globalement en un cluster pour une même clé.
+
+rdd.filter(boolean function)
+-->sélectionne les enregistrements tel que function(enregistrement)=VRAI (par ex enregistrement>5)
+
+rdd1.join(rdd2)
+-->fait une jointure (même structure que reduceByKey) retourne rdd'={(key,(rdd1[key],rdd2[key])) for key such as rdd1[key] and rdd2[key] exists} ACTION 
+
+rdd1.union(rdd2)
+-->retourne un rdd'=rdd1_UNION_rdd2
+

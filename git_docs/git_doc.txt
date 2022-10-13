@@ -1,0 +1,2 @@
+git pull origin main --rebase
+-->Si dans le cas ou on rajoute un commit en local non pusher puis on pull origin main après conflit.

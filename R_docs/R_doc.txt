@@ -1,0 +1,47 @@
+https://www.youtube.com/watch?v=_V8eKsto3Ug
+Video barchart
+
+Installation:
+-install R studio
+-install R
+
+Packages:
+-base packages/ contributed packages:
+-websites for packages: CRAN/ Crantastic/ gitHub
+load and unload and install it if necessary:
+-->library(name_of_my_package)
+-install package:
+-->install.packages("pacman") (very usefull package)
+load package and return boolean value to ensure that the package has been loaded:
+-->require(pacman)
+unload package:
+-->detach
+
+Plotting:
+-plot differents kinds of datas, plot adapts to the data wich is set on it:
+-->plot(data)
+Example:
+-load datadset:
+-->library(datasets)
+we take iris dataset from datasets.
+plot scatterplot x=index, y=iris$width:
+-->plot(iris$width)
+plot barplot with qualitative variable:
+-->plot(iris$species)
+plot matrix of plots for all the columns of iris dataset:
+-->plot(iris)
+set up settings for the plot:
+-->plot(iris$length,iris$width,
+	col="red",
+	xlab="xlabel",
+	ylab="ylabel",
+	main="title of the plot",
+	...
+       )
+plot functions/distributions (ex:dnorm):
+-->plot(exp,0,5) [plot exp from 0 to 5]
+
+
+
+
+

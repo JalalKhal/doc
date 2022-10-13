@@ -1,2 +1,19 @@
 git pull origin main --rebase
 -->Si dans le cas ou on rajoute un commit en local non pusher puis on pull origin main après conflit.
+
+HEAD -> pointeur sur une référence pour une branche donné ou un commit
+main ou ma_branche1 ou ma_branche2--> référence d'une branche donnée
+RQ: Ne pas trop déplacer le head
+
+
+git rebase --option HEAD~nombres_de_branches_a_deplacer
+-->Retourne au commit décalé de nombres_de_branches_a_deplacer
+option=hard:
+Supprime les fichiers en physiques les index(stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD].
+option=mixed:
+Ne supprime pas les fichiers en physiques mais supprime les indexs (stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
+->les fichiers qui ne sont plus indexés sont en physique avec la version du HEAD qu'on avait au départ.
+option=soft:
+Ne supprime pas les fichiers en physiques ET ne  supprime pas les indexs (stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
+->les fichiers qui sont indexés de [HEAD-nombres_de_branches_a_deplacer+1,HEAD] avec la version du HEAD qu'on avait au départ.
+

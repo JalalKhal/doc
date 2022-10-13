@@ -6,14 +6,18 @@ main ou ma_branche1 ou ma_branche2--> référence d'une branche donnée
 RQ: Ne pas trop déplacer le head
 
 
-git rebase --option HEAD~nombres_de_branches_a_deplacer
+git reset --option HEAD~nombres_de_branches_a_deplacer
 -->Retourne au commit décalé de nombres_de_branches_a_deplacer
 option=hard:
-Supprime les fichiers en physiques les index(stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD].
+Supprime les fichiers en physiques les index(staging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD].
 option=mixed:
-Ne supprime pas les fichiers en physiques mais supprime les indexs (stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
+Ne supprime pas les fichiers en physiques mais supprime les indexs (staging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
 ->les fichiers qui ne sont plus indexés sont en physique avec la version du HEAD qu'on avait au départ.
 option=soft:
-Ne supprime pas les fichiers en physiques ET ne  supprime pas les indexs (stagging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
+Ne supprime pas les fichiers en physiques ET ne  supprime pas les indexs (staging) de [HEAD-nombres_de_branches_a_deplacer+1,HEAD]:
 ->les fichiers qui sont indexés de [HEAD-nombres_de_branches_a_deplacer+1,HEAD] avec la version du HEAD qu'on avait au départ.
-
+Pour les options soft et mixed:
+->git prend en compte les versions des fichiers de [HEAD-nombres_de_branches_a_deplacer+1,HEAD] mais ils prend les versions les plus actualisées + de nouveaux fichiers si il  y en a sur [HEAD-nombres_de_branches_a_deplacer+1,HEAD]  (c'est à dire ceux (les fichiers) du HEAD avant le reset).
+Pour soft: ils les laissent dans l'index (staging) en cas récommite pour récupérer le HEAD avant le reset.
+Pour mixed: ils ne les laissent pas dans l'index (staging) mais les laissent en physique sur la machine.
+Pour hard: les suppriment en physique et à fortiori dans l'index (staging).

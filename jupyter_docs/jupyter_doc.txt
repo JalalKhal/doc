@@ -1,0 +1,9 @@
+Raccourcis jupyter:
+Mode commande:
+-Soit echap sur une cellule ou on clique sur la partie blanche de la cellule
+
+Rajouter une cellule de code au dessus : mode action + a
+Rajouter une cellule de code en dessous : mode action + b
+Faire réapparaître la dernière cellule supprimée : mode action + z
+Supprimer la cellule: D puis D
+

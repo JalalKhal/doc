@@ -1,0 +1,18 @@
+Documentation pandas utile:
+
+Méthode apply:
+Bien distinguer Serie et DataFrame (Très important) Bien regarder la doc. 
+DataFrame:
+->affectation colonne par colonne marchent pour affecter plusieurs colonnes d'un coup, donne une serie ou un DataFrame [sur les lignes ou colonne selon l'axe POUR LES DATAFRAMES].
+la fonction apply de DataFrame axe=0 argument de la fonction vecteur ligne et axe=1 argument de la fonction vecteur colonne.
+Serie:
+->serie x devient serie f(x) [la fonction apply de Series n'a pas d'axes colonnes/lignes].
+
+En vrac:
+bien cleaner les data (cleaner les na/None et regarder bien le type de données qu'on a)
+filtrage par masque df.loc[mask] est un nouveau DataFrame que df (pas la meme adresse mémoire)
+%%timeit au début de cellule
+
+
+
+

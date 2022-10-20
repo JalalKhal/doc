@@ -1,5 +1,5 @@
 https://www.youtube.com/watch?v=_V8eKsto3Ug
-Video barchart
+Video Overlaying
 
 Installation:
 -install R studio
@@ -40,6 +40,28 @@ set up settings for the plot:
        )
 plot functions/distributions (ex:dnorm):
 -->plot(exp,0,5) [plot exp from 0 to 5]
+split into multiple graphs:
+-->par(mfrow=c(number_rows,number_columns))
+
+Barcharts:
+dataset mtcars (DataFrame) in datasets library for introduce barcharts.
+create table object:
+-->cylinders<-table(mtcars$cyl)
+-->barplot(cylinders)
+->One way to create a table is using the table command. The arguments it takes is a vector of factors[quantitive variable], and it calculates the effective that each factor occurs.
+to make mathematics bar plot, you need to put in the function a table.
+
+Histograms [NOT MATHEMATICS HISTOGRAMS]:
+we take iris dataset from datasets (iris is on the datasets library).
+-->hist(iris$Length)
+
+Scatterplots:
+dataset mtcars (DataFrame) in datasets library for introduce barcharts.
+use basic plot function:
+-->plot(mtcars$wt,mtcars$mpg,
+	...some_parameters)
+	
+Overlaying:
 
 
 

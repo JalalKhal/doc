@@ -7,3 +7,23 @@ Rajouter une cellule de code en dessous : mode action + b
 Faire réapparaître la dernière cellule supprimée : mode action + z
 Supprimer la cellule: D puis D
 
+
+conda env/kernels:
+Jupyter(Lab/Server/Notebook) “dynamically” creates a kernel(spec) for your current python environment—that kernel type only exists in that virtual environment. This ensures that you always have a python kernel available to you, and that it matches the environment where your current JupyterLab is running.
+
+When you manually create a kernel spec, using the python -m ipykernel install --user ..., you’re creating a static kernel(spec) on disk that can be discovered from other virtual environments. The advantage of this is that you can install JupyterLab in one virtual environment while running kernels from other virtual environments.
+
+Many people use this feature to keep their kernel environments isolated. They might have different kernels for different tasks/workflows.
+
+En gros chaque environement possède son propre kernel pour pouvoir exécuter l'environement python, ce kernel est visible sur jupyter que par un jupyter installé dans l'environement et executé dans cette environement. pour pouvoir créer un kernel pour un environement visible par tous les environements.
+Dans l'environement on fait :python -m ipykernel install --user --name my_kernel --display-name "Python (my_kernel)"
+ Visible par tous lenvironement depuis jupyter notebook/lab mais le kernel est propre à l'environement ou il a été créé (donc kernel isolé des autres environement).
+ 
+ Pout setup les kernels:
+install dans env:base nb_conda_kernels -->très utile car après tous les kernels de tous les environements sont visibles.
+on peut voir dans env:base en installant nb_conda_kernels les kernels de base et Python[conda env: root] Python[conda env: name_of_my_environement]...
+ Python[conda env: root] -->copie dupliqué du kernel de base(environement de base) sans les crochets (par exemple kernel=Python)
+ 
+jupyter kernelspec list:
+liste des kernels sur disque (pas forcément kernels d'environement (les kernels statique sur disque sont mis dedans) mis dedans)
+

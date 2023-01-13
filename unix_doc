@@ -1,0 +1,15 @@
+Variables d'environnements:
+Les variables d'environnement sont des variables qui sont utilisées pour stocker des informations sur l'environnement système. Elles sont utilisées pour configurer le comportement des programmes et des commandes exécutés sur le système.
+
+Dans un bash shell on peut utiliser:
+export MA_VARIABLE_ENV=VALEUR
+--> affectation de VALEUR à MA_VARIABLE_ENV ATTENTION:
+il faut utiliser export pour MA_VARIABLE_ENV soit pris en compte comme une variable
+d'environnement et non une variable locale (dans un shell)
+de plus la protée de la variable d'environnement compte, si on modifie
+sa valeur dans un shell la variable d'environnement sera modifié au niveau du shell
+et des processus enfants éventuellements mais pas modifié dans d'autres contexte (par exemple d'autre shells qui ne sont pas ces enfants au sens de processus)
+Pour modifier la portée de la variable d'environnement au niveau utilisateur/système,
+il faut modifier certains fichiers.
+voir la doc:
+https://doc.ubuntu-fr.org/variables_d_environnement

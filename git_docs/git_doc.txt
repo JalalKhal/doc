@@ -1,3 +1,4 @@
+git rebase :https://www.miximum.fr/blog/git-rebase/
 git pull origin main --rebase
 -->Si dans le cas ou on rajoute un commit en local non pusher puis on pull origin main après conflit.
 
@@ -21,3 +22,5 @@ Pour les options soft et mixed:
 Pour soft: ils les laissent dans l'index (staging) en cas récommite pour récupérer le HEAD avant le reset.
 Pour mixed: ils ne les laissent pas dans l'index (staging) mais les laissent en physique sur la machine.
 Pour hard: les suppriment en physique et à fortiori dans l'index (staging).
+
+
